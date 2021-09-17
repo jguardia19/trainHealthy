@@ -20,25 +20,34 @@ Vue.use(Router)
       },
       component: () => import('../view/Login.vue')
     },
+    {
+      path:'/Home',
+      name:'Home',
+      meta:{
+        layout : 'dasboard-layout',
+        auth: true
+      },
+      component: () => import('../view/Home.vue')
+    },
    
   ]
   
 })
 
-// router.beforeEach((to, from, next) => {
+router.beforeEach((to, from, next) => {
 
-//   let autenticado = sessionStorage.getItem('autenticado')
+  let autenticado = sessionStorage.getItem('autenticado')
 
-//   let autorizacion = to.matched.some(record => record.meta.auth)
+  let autorizacion = to.matched.some(record => record.meta.auth)
 
-//     if (autorizacion && !autenticado) {
-//         next('login');
-//     }
-//     else {
-//         next();
-//     }
+    if (autorizacion && !autenticado) {
+        next('/');
+    }
+    else {
+        next();
+    }
 
 
-// });
+});
 
 export default router;
